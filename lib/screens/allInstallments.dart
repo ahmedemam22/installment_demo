@@ -42,7 +42,7 @@ class _allInstallmentsState extends State<allInstallments> {
         title: Text('كل المبيعات',style: TextStyle(fontFamily: 'Cairo'),),
       ),
       body:StreamBuilder<QuerySnapshot> (
-        stream: Provider.of<AllInstallmentsProvider>(context,listen: false).get_installments(),
+        stream: FirebaseFirestore.instance.collection('sellSomeThing').snapshots(),
         builder: (context,  AsyncSnapshot<QuerySnapshot>snapshot) {
           if(!snapshot.hasData){
               return Center(child: CircularProgressIndicator());
