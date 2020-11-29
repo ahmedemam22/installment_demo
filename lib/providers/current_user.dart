@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:installment_demo/module/userModel.dart';
 import 'package:installment_demo/services/userServices.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class currentUserState extends ChangeNotifier
 {
@@ -79,8 +80,13 @@ class currentUserState extends ChangeNotifier
     {
       UserCredential _authResult=await _authentecation.signInWithEmailAndPassword(email:email, password: password);
       if(_authResult != null) {
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        prefs.setString('id', _authResult.user.uid.toString());
+        prefs.setString('email', _authResult.user.email.toString());
         _newUser.uid = _authResult.user.uid;
         _newUser.Email = _authResult.user.email;
+       print( _authResult.user.displayName);
+       print("ssssssssss");
         val = true;
       }
 

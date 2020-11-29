@@ -32,7 +32,8 @@ dependencies:
   firebase_auth: ^0.18.2
   cloud_firestore: ^0.14.0+2
   provider: ^4.3.2+2
-  flutter_svg: ^0.17.4
+  flutter_svg: 0.18.0
+  shared_preferences: ^0.5.12+4
   firebase_storage: ^5.0.1
   image_picker: ^0.6.7+12
   jiffy: ^3.0.1

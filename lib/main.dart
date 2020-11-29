@@ -13,6 +13,7 @@ import 'package:installment_demo/screens/allInstallments.dart';
 import 'package:installment_demo/screens/root.dart';
 import 'package:installment_demo/services/customerServices.dart';
 import 'package:installment_demo/services/sellServices.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import './providers/current_user.dart';
 import 'package:provider/provider.dart';
 
@@ -20,9 +21,15 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   Provider.debugCheckInvalidValueType = null;
-  runApp(MyApp());
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  String name=await prefs.getString('id');
+
+
+  runApp(MyApp(name));
 }
 class MyApp extends StatelessWidget {
+  String name;
+  MyApp(this.name);
   @override
   Widget build(BuildContext context) {
     final custFireStoreService=custServices();
@@ -47,7 +54,7 @@ class MyApp extends StatelessWidget {
           home.route_name:(context)=>home(),
         },
           debugShowCheckedModeBanner: false,
-          home: Login_screen(),
+          home: name!=null?home():Login_screen(),
       ),
     );
   }
