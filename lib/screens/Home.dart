@@ -9,9 +9,25 @@ import 'package:installment_demo/screens/root.dart';
 import 'package:installment_demo/screens/users_screen.dart';
 import 'package:installment_demo/widdgets/gridDashboard.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../providers/current_user.dart';
-class home extends StatelessWidget {
+class home extends StatefulWidget {
   static const String route_name='Home_screen';
+
+  @override
+  _homeState createState() => _homeState();
+}
+
+class _homeState extends State<home> {
+  String name;
+  @override
+  void initState() {
+     SharedPreferences.getInstance().then((value) => name=value.getString('name'));
+   
+    super.initState();
+
+
+  }
   @override
   Widget build(BuildContext context) {
     double heeght=MediaQuery.of(context).size.height;
@@ -30,7 +46,7 @@ class home extends StatelessWidget {
                     children: <Widget>[
                      Padding(
                        padding: const EdgeInsets.only(right:24.0 , top: 40.0,bottom: 0.0),
-                       child: Text('نور مصطفئ',style: TextStyle(fontFamily: 'Cairo',fontWeight: FontWeight.bold,color: Colors.black87,fontSize: 17.0),),
+                       child: Text(name==null?"":name,style: TextStyle(fontFamily: 'Cairo',fontWeight: FontWeight.bold,color: Colors.black87,fontSize: 17.0),),
                      ),
                      Padding(
                         padding: const EdgeInsets.only(left: 70.0),

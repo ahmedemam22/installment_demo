@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:installment_demo/module/userModel.dart';
@@ -85,8 +86,12 @@ class currentUserState extends ChangeNotifier
         prefs.setString('email', _authResult.user.email.toString());
         _newUser.uid = _authResult.user.uid;
         _newUser.Email = _authResult.user.email;
-       print( _authResult.user.displayName);
-       print("ssssssssss");
+        DocumentSnapshot document=await FirebaseFirestore.instance.collection('users').doc(_newUser.uid).get();
+        prefs.setString('name', document.data()["fullname"]);
+        _newUser.fullName=document.data()["fullname"];
+        print(document.data()["fullname"]);
+        print("ssssssssssssss");
+
         val = true;
       }
 
